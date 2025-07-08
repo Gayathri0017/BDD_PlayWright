@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js --require-module ts-node/register"
+    "test": "cucumber-js --require-module ts-node/register --require src/test/steps/*.ts --require src/hooks/hooks.ts --format json:reports/cucumber_report.json",
+    "report": "node generateReport.js",
+    "test:withReport": "npm test && npm run report"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,8 @@
     "@cucumber/cucumber": "^11.3.0",
     "@playwright/test": "^1.53.2",
     "@types/node": "^24.0.10",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "cucumber-html-reporter": "^6.0.4"
   }
 }
+
