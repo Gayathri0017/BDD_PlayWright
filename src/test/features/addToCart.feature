@@ -1,4 +1,4 @@
-Feature: User Authentication Tests
+Feature: Add to Cart Test
 Background:
     Given the user navigates to the application
     And the user clicks login button

@@ -1,12 +1,13 @@
 import { Given, When, Then, Before, After } from "@cucumber/cucumber";
-import { expect } from "@playwright/test";
+import { expect, firefox } from "@playwright/test";
 import { pageFixture } from "../../hooks/pageFixtures";
-
 Given('the user navigates to the application',{ timeout: 30000 }, async function () {
-//     browser=await chromium.launch({ headless: false });
-//     page=await browser.newPage();
-
-    await pageFixture.page.goto("https://bookcart.azurewebsites.net/");
+    const baseUrl = process.env.BASEURL;
+    if (!baseUrl) {
+        throw new Error("BASEURL is not defined in environment variables");
+    }
+    await pageFixture.page.goto(baseUrl, 
+        { timeout: 10000 });
 });
 
 Given('the user clicks login button', async function () {
