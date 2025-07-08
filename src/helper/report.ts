@@ -8,7 +8,7 @@ const currentTime = new Date().toLocaleString("en-US", {
 
 report.generate({
   jsonDir: "test-results",
-  reportPath: "./",
+  reportPath: "./reports/html",
   metadata: {
     browser: {
       name: "chrome",
