@@ -18,7 +18,7 @@ Then('the product should be added to the cart', async function () {
     await pageFixture.page.waitForTimeout(2000);
     const num = Number(count);
     console.log(num);
-//     expect(num).toBeGreaterThan(0);
+    // expect(num).toBeGreaterThan(0);
 });
 
 

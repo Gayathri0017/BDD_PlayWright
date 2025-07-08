@@ -1,23 +1,25 @@
 {
-  "name": "bdd_playwright",
+  "name": "playwright-bdd",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "cucumber-js --require-module ts-node/register --require src/test/steps/*.ts --require src/hooks/hooks.ts --format json:reports/cucumber_report.json",
-    "report": "node generateReport.js",
-    "test:withReport": "npm test && npm run report"
-  },
+"scripts": {
+  "clean:reports": "rimraf test-results reports",
+  "testonly": "cross-env-shell \"npx cucumber-js || exit 0\"",
+  "test": "npm run clean:reports && npm run testonly && npm run posttest",
+  "posttest": "npx ts-node src/helper/report.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@cucumber/cucumber": "^11.3.0",
     "@playwright/test": "^1.53.2",
-    "@types/node": "^24.0.10",
+    "@types/node": "^20.11.30",
+    "cross-env": "^7.0.3",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "cucumber-html-reporter": "^6.0.4"
+    "typescript": "^5.8.3"
   }
 }
-
