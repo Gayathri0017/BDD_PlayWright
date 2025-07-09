@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "clean:reports": "rimraf test-results reports rerun.txt",
-  "testonly": "cross-env-shell \"npx cucumber-js --profile default || exit 0\"",
-  "test": "npm run clean:reports && npm run testonly && npm run posttest",
-  "posttest": "npx ts-node src/helper/report.ts",
-  "rerun": "npx cucumber-js @rerun.txt --profile rerun"
-},
-
+    "clean:reports": "rimraf test-results reports rerun.txt",
+    "testonly": "cross-env-shell \"npx cucumber-js --profile default || exit 0\"",
+    "test": "npm run clean:reports && npm run testonly && npm run posttest",
+    "posttest": "npx ts-node src/helper/report.ts",
+    "rerun": "npx cucumber-js @rerun.txt --profile rerun"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -18,11 +17,13 @@
     "@cucumber/cucumber": "^11.3.0",
     "@playwright/test": "^1.53.2",
     "@types/node": "^20.11.30",
+    "@types/winston": "^2.4.4",
     "cross-env": "^7.0.3",
     "dotenv": "^17.1.0",
     "multiple-cucumber-html-reporter": "^3.9.3",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "winston": "^3.17.0"
   }
 }

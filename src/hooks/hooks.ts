@@ -3,17 +3,20 @@ import { chromium,Browser,Page,BrowserContext} from "@playwright/test";
 import { pageFixture } from "./pageFixtures";
 import { getEnv } from "../helper/env/env";
 import { invokeBrowser } from "../helper/browsers/browserManager";
+import { createLogger } from "winston";
+import { options } from "../helper/util/logger";
 let browser:Browser;
 let context:BrowserContext;
 BeforeAll(async function(){
     getEnv();
     browser=await invokeBrowser();
-    // browser=await chromium.launch({headless:false});
 });
-Before(async function(){
+Before(async function({pickle}){
+    const scenarioName=pickle.name+pickle.id;
     context=await browser.newContext();
     const page= await browser.newPage();
     pageFixture.page=page;
+    pageFixture.logger=createLogger(options(scenarioName));
 });
 After(async function({pickle,result}){
     console.log(result?.status);
@@ -21,9 +24,11 @@ After(async function({pickle,result}){
         const img=await pageFixture.page.screenshot({path:`./test-result/screenshots/${pickle.name}.png`,type:"png"})
         await this.attach(img,"image/png");
     }
+    // await pageFixture.logger?.close();
     await pageFixture.page.close();
     await context.close();
 });
 AfterAll(async function(){
+    await pageFixture.logger?.close();
     await browser.close();
 });
