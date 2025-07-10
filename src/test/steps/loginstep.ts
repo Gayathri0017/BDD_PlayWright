@@ -3,7 +3,9 @@ import { expect, firefox } from "@playwright/test";
 import { pageFixture } from "../../hooks/pageFixtures";
 import LoginPage from "../../pages/loginpage";
 import HeaderPage from "../../pages/headerPage";
-import { TimestampOptions } from './../../../node_modules/logform/index.d';
+import { readCSV } from '../../helper/util/csvReader';
+const loginData = readCSV('src/helper/testdata/loginData.csv');
+let currentRow = 0;
 let loginPage: LoginPage;
 let headerPage: HeaderPage;
 
@@ -23,16 +25,20 @@ Given('the user clicks login button', async function () {
     await loginPage.clickLoginBtn();
 });
 
-Given('the user enter the username as {string}', { timeout: 20000 }, async function (string) {
-    await loginPage.enterUsername(string);
+Given('the user enter the username as', { timeout: 20000 }, async function () {
+    // await loginPage.enterUsername(this.username);
+    const username = loginData[currentRow]?.username || "";
+    await loginPage.enterUsername(username);
 });
 
-Given('the user enter the password as {string}', async function (password) {
+Given('the user enter the password as', async function () {
+    const password = loginData[currentRow]?.password || "";
     await loginPage.enterPassword(password);
 });
 
 When('the user click on the login button', async function () {
     await loginPage.submitLogin();
+    currentRow++;
 });
 
 Then('the login should be success', async function () {

@@ -8,19 +8,15 @@ export default class HeaderPage{
         }
     private headerPageElements={
         searchInput:"input[placeholder='Search books or authors']",
-        cartBtn:"(//span[@class='mdc-button__label'])[5]",
         cartValue:"(//span[@class='mdc-button__label']//span)[1]",
         sugges:"//span[@class='mdc-list-item__primary-text']",
         loginScs:"(//span[@class='mdc-button__label']//span)[1]",
     }
-  async searchForBook(bookName: string) {
+  async searchForBook(bookName: string){
     await this.page.fill(this.headerPageElements.searchInput, bookName);
     await this.base.waitAndClick(this.headerPageElements.sugges);
   }
-  async AddToCart() {
-    await this.base.waitAndClick(this.headerPageElements.cartBtn);
-  }
-  async verifyLoginSuccess() {
+  async verifyLoginSuccess(){
     const loginScsLocator= this.page.locator(this.headerPageElements.loginScs);
     await expect(loginScsLocator).toBeVisible();
   }

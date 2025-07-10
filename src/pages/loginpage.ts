@@ -1,5 +1,7 @@
 import {expect,Page,Locator } from "@playwright/test";
 import PlaywrightWrapper from "../helper/wrapper/playwrightWrapper";
+import { readCSV } from "../helper/util/csvReader";
+const loginData = readCSV("src/helper/testdata/loginData.csv");
 export default class LoginPage{
     private base:PlaywrightWrapper;
     constructor(private page:Page)
@@ -27,7 +29,6 @@ export default class LoginPage{
     async enterUsername(username: string) {
         await this.page.fill(this.LoginPageElements.userName, username);
     }
-
     async enterPassword(password: string) {
         await this.page.fill(this.LoginPageElements.password, password);
     }

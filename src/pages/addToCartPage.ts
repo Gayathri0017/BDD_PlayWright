@@ -10,12 +10,12 @@ export default class AddToCart{
         cartBtn:"(//span[@class='mdc-button__label'])[5]",
         count:"//span[@id='mat-badge-content-0']",
     }
-    async AddToCart() {
+    async AddToCart(){
         await this.base.waitAndClick(this.CartPageElements.cartBtn);
     }
     async verifyCount(){
         let c=await this.page.textContent(this.CartPageElements.count);
-        const num= Number(c?.trim());
+        const num=Number(c?.trim());
         return num;
     }
 }
